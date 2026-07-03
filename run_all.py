@@ -65,11 +65,13 @@ def main():
     
     success_count = 0
     fail_count = 0
+    skip_count = 0
 
     for updater_dir in updaters:
         update_script = updater_dir / "update.py"
         if not update_script.exists():
             log_print(f"[SKIPPING] {updater_dir.name}: No update.py found.", "WARNING")
+            skip_count += 1
             continue
             
         log_print(f"[RUNNING] {updater_dir.name}...")
@@ -84,8 +86,15 @@ def main():
                 text=True,
                 check=True
             )
-            log_print(f"[SUCCESS] {updater_dir.name}")
-            success_count += 1
+            
+            # Check if the individual updater explicitly skipped itself
+            if "[SKIPPED]" in result.stdout:
+                log_print(f"[SKIPPED] {updater_dir.name}")
+                skip_count += 1
+            else:
+                log_print(f"[SUCCESS] {updater_dir.name}")
+                success_count += 1
+                
         except subprocess.CalledProcessError as e:
             log_print(f"[FAILED] {updater_dir.name}", "ERROR")
             log_print(f"Error Output:\n{e.stderr or e.output}", "ERROR")
@@ -93,7 +102,7 @@ def main():
             
         log_print("-" * 40)
 
-    log_print(f"[COMPLETE] {success_count} succeeded, {fail_count} failed.")
+    log_print(f"[COMPLETE] {success_count} succeeded, {skip_count} skipped, {fail_count} failed.")
     print("="*50 + "\n")
 
 if __name__ == "__main__":

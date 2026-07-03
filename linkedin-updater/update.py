@@ -12,10 +12,11 @@ def main():
     # Graceful Fallback: Skip if credentials are missing
     if not os.environ.get("LINKEDIN_USERNAME") or not os.environ.get("LINKEDIN_PASSWORD"):
         logger.warning("[SKIPPED] LinkedIn Updater: Missing LINKEDIN_USERNAME or LINKEDIN_PASSWORD.")
+        print("[SKIPPED] LinkedIn Updater: Missing LINKEDIN_USERNAME or LINKEDIN_PASSWORD.")
         return
 
     if not creators_file.exists():
-        logger.error(f"Creators file not found at {creators_file}")
+        logger.warning(f"[SKIPPED] Creators file not found at {creators_file}")
         return
 
     # Import here to avoid ModuleNotFoundError if skipping

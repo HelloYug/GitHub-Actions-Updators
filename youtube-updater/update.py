@@ -11,7 +11,7 @@ def main():
     output_file = base_dir / "output.json"
     
     if not creators_file.exists():
-        logger.error(f"Creators file not found at {creators_file}")
+        logger.warning(f"[SKIPPED] Creators file not found at {creators_file}")
         return
 
     try:
