@@ -1,0 +1,14 @@
+[
+    {
+        "id": "1",
+        "name": "Jane Doe",
+        "handle": "janedoe",
+        "username": "janedoe"
+    },
+    {
+        "id": "2",
+        "name": "Another Creator",
+        "handle": "anothercreator",
+        "username": "anothercreator"
+    }
+]

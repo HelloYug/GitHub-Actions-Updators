@@ -1,0 +1,79 @@
+import json
+import os
+from datetime import datetime, timezone
+from pathlib import Path
+from utils import logger
+
+def main():
+    base_dir = Path(__file__).parent
+    creators_file = base_dir / "creators.json"
+    output_file = base_dir / "output.json"
+    
+    # Graceful Fallback: Skip if credentials are missing
+    if not os.environ.get("LINKEDIN_USERNAME") or not os.environ.get("LINKEDIN_PASSWORD"):
+        logger.warning("[SKIPPED] LinkedIn Updater: Missing LINKEDIN_USERNAME or LINKEDIN_PASSWORD.")
+        return
+
+    if not creators_file.exists():
+        logger.error(f"Creators file not found at {creators_file}")
+        return
+
+    # Import here to avoid ModuleNotFoundError if skipping
+    try:
+        from linkedin_scraper import LinkedInScraper
+    except ImportError as e:
+        logger.warning(f"[SKIPPED] LinkedIn Updater: Dependency missing ({e}). Please check requirements.")
+        return
+
+    try:
+        with open(creators_file, "r", encoding="utf-8") as f:
+            creators = json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to read creators.json: {e}")
+        return
+
+    scraper = LinkedInScraper()
+    if scraper.api is None:
+        logger.warning("[SKIPPED] LinkedIn Updater: API initialization failed (check credentials or dependencies).")
+        return
+        
+    results = []
+
+    for creator in creators:
+        handle = creator.get("handle")
+        logger.info(f"Extracting stats for {handle}...")
+        
+        try:
+            stats = scraper.scrape(handle)
+            
+            result = {
+                "id": creator.get("id"),
+                "name": creator.get("name"),
+                "handle": handle,
+                **stats,
+                "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            }
+            results.append(result)
+            logger.info(f"Successfully scraped {handle}")
+        except Exception as e:
+            logger.error(f"Failed to scrape {handle}: {e}")
+            result = {
+                "id": creator.get("id"),
+                "name": creator.get("name"),
+                "handle": handle,
+                "status": "failed",
+                "reason": str(e),
+                "last_updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            }
+            results.append(result)
+
+    logger.info("Writing JSON...")
+    try:
+        with open(output_file, "w", encoding="utf-8") as f:
+            json.dump(results, f, indent=4)
+        logger.info("Completed.")
+    except Exception as e:
+        logger.error(f"Failed to write output.json: {e}")
+
+if __name__ == "__main__":
+    main()
