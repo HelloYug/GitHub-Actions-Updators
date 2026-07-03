@@ -1,5 +1,4 @@
-# Logs
-*.log
+# Logs (Removed to showcase usage)
 
 # Python
 __pycache__/
