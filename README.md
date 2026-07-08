@@ -99,7 +99,8 @@ This project is available under the **[MIT License](LICENSE)**. Feel free to for
 ## 👨‍💻 Author
 
 **Yug Agarwal**
-- **Portfolio:** [helloyug.github.io](https://helloyug.github.io/)
-- **GitHub:** [@HelloYug](https://github.com/HelloYug)
-- **LinkedIn:** [yugagarwal704](https://linkedin.com/in/yugagarwal704)
-- **Email:** [yugagarwal704@gmail.com](mailto:yugagarwal704@gmail.com)
+
+* 📧 Email – [yugagarwal704@gmail.com](mailto:yugagarwal704@gmail.com)
+* 🔗 GitHub – [@HelloYug](https://github.com/HelloYug)
+* 💼 LinkedIn – [yugagarwal704](https://www.linkedin.com/in/yugagarwal704/)
+* 🌐 Website – [yugagarwal.dev](https://yugagarwal.dev/?utm_source=github&utm_medium=readme&utm_campaign=Updators_GitHub_Action_readme)
