@@ -103,4 +103,4 @@ This project is available under the **[MIT License](LICENSE)**. Feel free to for
 * 📧 Email – [yugagarwal704@gmail.com](mailto:yugagarwal704@gmail.com)
 * 🔗 GitHub – [@HelloYug](https://github.com/HelloYug)
 * 💼 LinkedIn – [yugagarwal704](https://www.linkedin.com/in/yugagarwal704/)
-* 🌐 Website – [yugagarwal.dev](https://yugagarwal.dev/?utm_source=github&utm_medium=readme&utm_campaign=Updators_GitHub_Action_readme)
+* 🌐 Portfolio – [yugagarwal.dev](https://yugagarwal.dev/?utm_source=github&utm_medium=readme&utm_campaign=GitHub-Actions-Updators_readme)
