@@ -15,6 +15,6 @@ venv.bak/
 # Playwright cache
 .playwright/
 
-# OS generated files
-.DS_Store
-Thumbs.db
+# Updater runtime artifacts
+debug/
+updater.log

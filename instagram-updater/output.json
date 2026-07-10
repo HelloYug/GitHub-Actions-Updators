@@ -3,7 +3,18 @@
         "id": 1,
         "name": "Yug Agarwal",
         "username": "yugagarwal05",
-        "status": "failed",
-        "reason": "Profile unavailable or scraping failed"
+        "followers": {
+            "display": "164",
+            "value": 164
+        },
+        "following": {
+            "display": "194",
+            "value": 194
+        },
+        "posts": {
+            "display": "0",
+            "value": 0
+        },
+        "last_updated": "2026-07-10T21:32:30Z"
     }
 ]

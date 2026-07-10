@@ -2,15 +2,17 @@
 
 A completely standalone, highly resilient Python-based scraper that fetches public Instagram profile statistics (followers, following, posts counts) **without using any official Meta Graph APIs or Facebook APIs**.
 
-This project extracts metadata organically from public profile pages using Playwright, BeautifulSoup, and LXML, prioritizing structured embedded data (e.g., SEO meta tags) to avoid brittle DOM selectors.
+This project extracts metadata organically from public profile pages using Playwright, BeautifulSoup, and LXML, prioritizing structured embedded data (e.g., SEO meta tags, JSON-LD, DOM selectors) to provide robust extraction with multiple fallback strategies.
 
 ## Features
 
 - **No Official APIs Used**: Works without Meta/Facebook API keys, tokens, or app approvals.
+- **Multi-Strategy Extraction**: Uses 4 different extraction methods (JSON-LD, DOM selectors, Meta tags, Embedded JSON) with intelligent fallbacks.
 - **Robust Number Parsing**: Accurately interprets numbers like `1.2K`, `2.5M`, `1,200`.
-- **Fault-Tolerant**: Implements retries and handles unavailable or private profiles gracefully without crashing.
-- **Clean JSON Output**: Emits structured statistics to `output.json` for easy integration.
-- **Automated**: Includes a GitHub Actions workflow to run scraping daily.
+- **Sophisticated Error Handling**: Distinguishes between recoverable errors (rate limits, blocks) and non-recoverable errors (private profiles).
+- **Fault-Tolerant**: Implements retries with exponential backoff and handles unavailable or private profiles gracefully.
+- **Structured Logging**: Comprehensive logging with step-level progress messages, timestamps, and per-profile debug logs.
+- **Automated**: Includes a GitHub Actions workflow to run scraping on a schedule.
 
 ---
 
@@ -22,8 +24,10 @@ This project extracts metadata organically from public profile pages using Playw
 
 ### Setup
 
-1. **Clone or Navigate to the Directory**:
-   Ensure you are in the `instagram-updater` directory.
+1. **Navigate to the Directory**:
+   ```bash
+   cd instagram-updater
+   ```
 
 2. **Install Python Dependencies**:
    ```bash
@@ -40,24 +44,27 @@ This project extracts metadata organically from public profile pages using Playw
 
 ## Configuration: Adding Creators
 
-Edit the `creators.json` file in the root directory. Add the creators you want to track using the following structure:
+Edit the `creators.json` file in this directory. Add the creators you want to track using the following structure:
 
 ```json
 [
     {
         "id": 1,
-        "name": "Fearless Innocent Math",
-        "username": "dr.anuj.fearlessinnocentmath"
+        "name": "Your Creator Name",
+        "username": "instagram_username"
     },
     {
         "id": 2,
         "name": "Another Creator",
-        "username": "creator_username"
+        "username": "another_username"
     }
 ]
 ```
 
-*(Optional)*: If you want the JSON output to retain the raw strings (e.g., `"1.5M"`) instead of converting them to raw integers, open `utils.py` and set `PARSE_NUMBERS = False`.
+Each creator object requires:
+- `id`: A unique numeric identifier
+- `name`: Display name for the creator
+- `username`: Instagram username (without the @ symbol)
 
 ---
 
@@ -69,35 +76,81 @@ To start the scraper:
 python update.py
 ```
 
-You should see clean logging indicating the progress:
+You should see detailed structured logging indicating progress:
 ```text
-Loading creator...
-Opening Instagram profile...
-Extracting statistics...
-Writing JSON...
-Completed.
+[2026-07-09 13:50:05] [SYSTEM] [SYSTEM] [N/A] [INFO] Starting Instagram Profile Stats Updater...
+[2026-07-09 13:50:12] [username] [PROCESS] [N/A] [INFO] Starting scraping process for 'Creator Name' (@username)...
+[2026-07-09 13:50:19] [username] [PROCESS] [N/A] [SUCCESS] Updated username followers to 471K
 ```
 
 ---
 
-## Expected Output
+## Output
 
-The script generates (or overwrites) an `output.json` file structured as follows:
+The script updates the `creators.json` file in-place, adding or updating the `followers` field for each successfully scraped creator:
 
 ```json
 [
     {
         "id": 1,
-        "name": "Fearless Innocent Math",
-        "username": "dr.anuj.fearlessinnocentmath",
-        "followers": {
-            "display": "125K",
-            "value": 125000
-        },
-        "following": {
-            "display": "12",
-            "value": 12
-        },
+        "name": "Your Creator Name",
+        "username": "instagram_username",
+        "followers": "125K"
+    }
+]
+```
+
+---
+
+## Logging and Debugging
+
+- **Console Output**: Structured and includes timestamps, usernames, operations, and status values.
+- **Per-Profile Logs**: Written to the `debug/` folder with detailed extraction attempts and errors.
+- **Diagnostics**: HTML snapshots and full-page screenshots are saved in `debug/` for blocked or failed profiles.
+- **Log Rotation**: Old log sessions are automatically rotated to keep the log file manageable.
+
+---
+
+## GitHub Actions Workflow
+
+The repository includes a workflow that:
+- Runs on a schedule (typically every 3 days)
+- Supports manual execution with `workflow_dispatch`
+- Installs dependencies and Playwright Chromium
+- Runs the updater
+- Commits any changes to the data file
+
+---
+
+## Troubleshooting
+
+### Playwright Installation Issues
+If Playwright fails to launch, run:
+```bash
+playwright install chromium
+```
+
+### Instagram Blocking
+- If Instagram blocks the request from your IP, the scraper will log this as an external block error and continue gracefully.
+- Consider running from a different network or using a VPN if blocks persist.
+
+### Private or Unavailable Profiles
+- If a profile is private, suspended, or deleted, the scraper will record the failure and continue with other profiles.
+- Check the per-profile logs in `debug/` for detailed error messages.
+
+### Debugging Failed Extractions
+- Check `debug/{username}.log` for step-by-step extraction logs.
+- Check `debug/{username}.html` for the raw page content.
+- Check `debug/{username}.png` for a screenshot of what was rendered.
+
+---
+
+## Advanced Configuration
+
+In `utils.py`, you can customize:
+- `ENABLE_FILE_LOGGING`: Set to `True` to enable file logging (default: `False`)
+- `MAX_LOG_SESSIONS`: Maximum number of log sessions to keep (default: `4`)
+- `PARSE_NUMBERS`: Set to `False` to keep raw strings like `"1.2K"` instead of converting to integers (default: `True`)
         "posts": {
             "display": "486",
             "value": 486
