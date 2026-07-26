@@ -2,11 +2,6 @@
 ==================================================
 === NEW UPDATER SESSION ===
 ==================================================
-2026-07-03 11:18:17,812 - WARNING - [SKIPPED] LinkedIn Updater: Missing LINKEDIN_USERNAME or LINKEDIN_PASSWORD.
-
-==================================================
-=== NEW UPDATER SESSION ===
-==================================================
 2026-07-05 04:00:18,149 - WARNING - [SKIPPED] LinkedIn Updater: Missing LINKEDIN_USERNAME or LINKEDIN_PASSWORD.
 
 ==================================================
@@ -23,3 +18,8 @@
 === NEW UPDATER SESSION ===
 ==================================================
 2026-07-19 03:26:36,340 - WARNING - [SKIPPED] LinkedIn Updater: Missing LINKEDIN_USERNAME or LINKEDIN_PASSWORD.
+
+==================================================
+=== NEW UPDATER SESSION ===
+==================================================
+2026-07-26 03:32:07,379 - WARNING - [SKIPPED] LinkedIn Updater: Missing LINKEDIN_USERNAME or LINKEDIN_PASSWORD.
