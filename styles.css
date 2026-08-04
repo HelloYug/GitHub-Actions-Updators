@@ -1,0 +1,384 @@
+:root {
+    --bg-color: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.7);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --accent-color: #3b82f6;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --success-color: #10b981;
+    --error-color: #ef4444;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a, #172554);
+    background-size: 300% 300%;
+    animation: gradientBG 20s ease infinite;
+    color: var(--text-primary);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+}
+
+header {
+    background-color: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 2rem 0 1.5rem 0; /* Reduced top padding to tighten the header */
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+header p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+}
+
+.github-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 0.5rem;
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.github-btn:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+    header h1 {
+        font-size: 32px;
+    }
+    header p {
+        font-size: 15px;
+    }
+}
+
+main {
+    flex: 1;
+    padding: 4rem 0 4rem 0; /* Increased top padding for better spacing from header */
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.dynamic-stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.project-content p {
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+.project-content p:last-child {
+    margin-bottom: 0;
+}
+.project-content a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+.project-content a:hover {
+    text-decoration: underline;
+}
+
+.loading-state {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    padding: 3rem 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.platform-section {
+    background-color: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .platform-section {
+        padding: 24px;
+    }
+}
+
+.platform-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.platform-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+.cards-grid {
+    display: grid;
+    /* Responsive CSS grid: Mobile 1 col, wider screens adapt */
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 16px;
+}
+
+@media (min-width: 1024px) {
+    /* Ensure cards grid behaves properly on desktop */
+    .cards-grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    }
+}
+
+.card {
+    background-color: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px; /* Mobile padding */
+    transition: all 0.3s ease;
+    width: 100%;
+    min-width: 0; /* Important for preventing overflow */
+}
+
+@media (min-width: 768px) {
+    .card {
+        padding: 20px; /* Desktop padding */
+    }
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    background-color: rgba(15, 23, 42, 0.6);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 12px;
+}
+
+.card-header > div {
+    min-width: 0;
+    flex: 1;
+}
+
+.user-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-handle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.status-badge {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.status-success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+}
+
+.status-failed {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 20px;
+    }
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0;
+    min-width: 0; /* Crucial for text wrapping in grid */
+}
+
+/* Make long text span full width in 2-column grid */
+.stat-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    overflow-wrap: anywhere; /* Handle long URLs securely */
+    white-space: pre-wrap;
+    min-width: 0;
+    line-height: 1.5;
+}
+
+.stat-value a {
+    color: #60a5fa;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.stat-value a:hover {
+    text-decoration: underline;
+}
+
+.stat-value img {
+    margin-top: 8px;
+    border-radius: 8px;
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    display: block;
+}
+
+.card-footer {
+    font-size: 12px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 13px;
+    margin-top: 1rem;
+    padding: 12px;
+    background-color: rgba(239, 68, 68, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    overflow-wrap: anywhere;
+}
+
+footer {
+    text-align: center;
+    padding: 24px 16px;
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+    font-size: 13px;
+}
+
+footer a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

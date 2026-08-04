@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "name": "Yug Agarwal",
+        "handle": "YugAgarwal704",
+        "realName": "Yug Agarwal",
+        "userAvatar": "https://assets.leetcode.com/users/yugagarwal704/avatar_1768758135.png",
+        "aboutMe": "AI-focused Computer Science undergraduate with experience in backend development, research analysis, and business operations. Built 10+ AI, automation, and CV projects using Python, MySQL, and OpenCV. Interned at Tranquiex, Nebulyn, and Medipol, contributing to backend modules, market research, and operational workflows. Skilled in Python, Java, DSA, SQL, and design tools, backed by Google, CISCO, and NPTEL certifications, and active in leadership roles at college.",
+        "school": null,
+        "websites": [
+            "https://yugagarwal.dev/?utm_source=leetcode&utm_medium=profile&utm_campaign=portfolio",
+            "https://resume.yugagarwal.dev"
+        ],
+        "countryName": "India",
+        "ranking": 1367916,
+        "reputation": 0,
+        "totalSolved": 121,
+        "easySolved": 69,
+        "mediumSolved": 48,
+        "hardSolved": 4,
+        "last_updated": "2026-08-04T09:32:07Z"
+    }
+]
