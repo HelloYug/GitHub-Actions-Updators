@@ -3,18 +3,7 @@
         "id": 1,
         "name": "Yug Agarwal",
         "username": "yugagarwal05",
-        "followers": {
-            "display": "168",
-            "value": 168
-        },
-        "following": {
-            "display": "197",
-            "value": 197
-        },
-        "posts": {
-            "display": "0",
-            "value": 0
-        },
-        "last_updated": "2026-08-04T15:01:57Z"
+        "status": "failed",
+        "reason": "Redirected to Instagram login page. Logged-out access is blocked for this IP."
     }
 ]
